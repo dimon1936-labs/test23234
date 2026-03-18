@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id        String      @id @default(uuid())
+  title     String
+  date      DateTime    @db.Date
+  order     Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  labels    TaskLabel[]
+
+  @@index([date])
+}
+
+model Label {
+  id    String      @id @default(uuid())
+  color String
+  name  String      @default("")
+  tasks TaskLabel[]
+
+  @@unique([color])
+}
+
+model TaskLabel {
+  taskId  String
+  labelId String
+  task    Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  label   Label  @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, labelId])
+}

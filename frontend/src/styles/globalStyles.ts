@@ -1,0 +1,22 @@
+import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
+
+export const GlobalStyles = createGlobalStyle`
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, sans-serif;
+    background: ${theme.colors.bg};
+    color: ${theme.colors.text};
+    line-height: 1.5;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+`;
