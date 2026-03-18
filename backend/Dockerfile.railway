@@ -7,14 +7,14 @@ WORKDIR /app
 
 RUN apk add --no-cache openssl
 
-COPY package.json yarn.lock ./
+COPY backend/package.json backend/yarn.lock ./
 RUN yarn install --frozen-lockfile --ignore-engines
 
-COPY prisma ./prisma
+COPY backend/prisma ./prisma
 RUN npx prisma generate
 
-COPY tsconfig.json tsconfig.build.json nest-cli.json ./
-COPY src ./src
+COPY backend/tsconfig.json backend/tsconfig.build.json backend/nest-cli.json ./
+COPY backend/src ./src
 RUN yarn build
 
 # -------------------------------------------------------------
@@ -30,7 +30,7 @@ ENV NODE_ENV=production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/prisma ./prisma
-COPY package.json ./
+COPY --from=build /app/package.json ./
 
 RUN npx prisma generate
 
