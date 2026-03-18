@@ -5,7 +5,7 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl openssl-dev
 
 COPY backend/package.json backend/yarn.lock ./
 RUN yarn install --frozen-lockfile --ignore-engines
@@ -22,7 +22,7 @@ RUN yarn build
 # -------------------------------------------------------------
 FROM node:20-alpine AS runtime
 
-RUN apk add --no-cache libssl3 ca-certificates
+RUN apk add --no-cache openssl libssl3
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -31,8 +31,6 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/package.json ./
-
-RUN npx prisma generate
 
 USER node
 
