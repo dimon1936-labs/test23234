@@ -207,13 +207,13 @@ export const TaskCard = memo(function TaskCard({ task, dimmed, onUpdate, onDelet
     <Card
       ref={setNodeRef}
       style={style}
-      role="listitem"
-      aria-label={`Task: ${task.title}`}
       aria-grabbed={isDragging}
       $isDragging={isDragging}
       $dimmed={dimmed}
       {...attributes}
       {...listeners}
+      role="listitem"
+      aria-label={`Task: ${task.title}`}
     >
       {task.labels?.length > 0 && (
         <LabelsRow aria-label="Labels">
