@@ -10,7 +10,7 @@ RUN npm ci --ignore-engines
 
 COPY frontend/ .
 
-ARG VITE_API_URL=/api
+ARG VITE_API_URL=https://backend-production-cf34.up.railway.app/api
 ENV VITE_API_URL=$VITE_API_URL
 
 RUN npm run build

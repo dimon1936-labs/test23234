@@ -2,7 +2,7 @@
 
 A calendar grid with task management, drag-and-drop, color labels, and public holidays — built without any calendar libraries.
 
-**[Live Demo](https://your-app.vercel.app)** | **[API Swagger](https://your-api.railway.app/api/docs)**
+**[Live Demo](https://your-app.vercel.app)** | **[API Swagger](https://backend-production-cf34.up.railway.app/api/docs)**
 
 ## Implemented Requirements
 
